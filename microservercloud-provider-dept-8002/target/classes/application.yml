@@ -1,0 +1,42 @@
+server:
+  port: 8002
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml #mybatis配置文件所在路径
+  type-aliases-package: com.csii.springcloud.entities  #所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*.xml   #mapper映射文件
+
+spring:
+  application:
+    name: micro-server-dept   #对外暴露微服务的名字
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver #mysql驱动包
+    url: jdbc:mysql://localhost:3306/cloudDB02  #数据库名称
+    username: root
+    password: 123456
+    dbcp2:
+      min-idle: 5 #数据库连接词的最小维持连接数
+      initial-size: 5 #初始化连接数
+      max-total: 5 #最大连接数
+      max-wait-millis: 1000  #等待连接获取的最大超时时间
+
+##打印sql的日志信息
+logging:
+  level:
+    com.pihao.cloud.dao: debug
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    #服务实例名称修改
+    instance-id: study-springcloud-dept8002
+    #访问路径显示IP地址
+    prefer-ip-address: true
+
+info:
+  app.name: study-springcloud-micoservices
+  company.name: www.csii.com
+  build.artifactId: microservercloud-provider-dept-8002
+  build.version: 1.0-SNAPSHOT
